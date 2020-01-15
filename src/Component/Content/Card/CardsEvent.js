@@ -34,7 +34,7 @@ export default class CardsEvent extends Component {
     };
     console.log(dataOrder);
     axios
-    .post("http://localhost:5000/api/v1/order/add", dataOrder)
+    .post("https://ke-ticket-app.herokuapp.com/api/v1/order/add", dataOrder)
     .then(res => {
       console.log(res);
       alert("Order Successfully Added!")

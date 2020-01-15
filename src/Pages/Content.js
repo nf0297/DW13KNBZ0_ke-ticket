@@ -9,25 +9,30 @@ import { connect } from 'react-redux';
 
 class Content extends Component {
 
-// constructor(props){
-//   super(props);
-//   this.state = {
-//     search: ""
-//   }
-// }
+constructor(props){
+  super(props);
+  this.state = {
+    search: ""
+  };
+}
 
 componentDidMount() {
   this.props.dispatch(getAllCategory());
   this.props.dispatch(getAllEvent());
 }
 
-// onChange = event => {
-//   this.setState({ search: event.target.value });
-// };
+onChangeSearch = event => {
+  this.setState({ search: event.target.value });
+};
 
 render() {
   const event = this.props.AllEvents;
   const category = this.props.AllCategory;
+  const { search } = this.state;
+    const filteredEvents = event.filter(event => {
+      return event.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    });
+
   const todayEvents = event.filter(event => {
     return (
       moment(new Date(event.starttime)).format("YYYY-MM-DD") ===
@@ -49,7 +54,7 @@ return (
         <div className='page-content' style={{backgroundColor:"rgb(246, 225, 247)"}}>  
                 <Container style={{paddingBottom:"10vh"}}>
                   <br/>
-                <Input fluid transparent icon='search' size='large' placeholder='Search Event' style={style.formInput} />
+                <Input fluid transparent icon='search' size='large' placeholder='Search Event' style={style.formInput} onChange={this.onChangeSearch} />
                   <br/>
                     <Card.Group itemsPerRow={4}>
                       {category.map(Item => 
@@ -60,51 +65,77 @@ return (
                         />)}
                     </Card.Group>
                     <br/>
-                   <Header
-                    content='Today'
-                    style={style.header}
-                   />
+                    {search ?  (
+                      <Container>
                     <Card.Group itemsPerRow={3}>
-                    {todayEvents &&
-                      todayEvents.map(Item => {
-                        const checkDate = new Date(Item.starttime);
-                        const date = moment(checkDate).format("DD MMMM YYYY");
-                        return (
-                        <Cards
-                        image={Item.image}
-                        title={Item.title}
-                        price={Item.price}
-                        content={Item.desc}
-                        date={date}
-                        category={Item.Category.name}
-                        link={"event/"+Item.id+"/detail"}
-                        />
-                        );
-                    })}
-                    </Card.Group>
-
-                    <br/>
-                    <Header 
-                      content='Upcoming'
+                    {filteredEvents &&
+                        filteredEvents.map(Item => {
+                          const checkDate = new Date(Item.starttime);
+                          const date = moment(checkDate).format("DD MMMM YYYY");
+                          return (
+                          <Cards
+                          image={Item.image}
+                          title={Item.title}
+                          price={Item.price}
+                          content={Item.desc}
+                          date={date}
+                          category={Item.Category.name}
+                          link={"event/"+Item.id+"/detail"}
+                          />
+                          );
+                      })}
+                    </Card.Group> 
+                    </Container>
+                    )
+                  :
+                    (
+                     <Container>
+                    <Header
+                      content='Today'
                       style={style.header}
                     />
-                    <Card.Group itemsPerRow={3}>
-                        {upcomingEvents &&
-                        upcomingEvents.map(Item => {
-                        const checkDate = new Date(Item.starttime);
-                        const date = moment(checkDate).format("DD MMMM YYYY");
-                        return (
-                        <Cards
-                        image={Item.image}
-                        title={Item.title}
-                        price={Item.price}
-                        content={Item.desc}
-                        date={date}
-                        category={Item.Category.name}
-                        link={"event/"+Item.id+"/detail"}
-                        />);
-                    })}
-                    </Card.Group>
+                      <Card.Group itemsPerRow={3}>
+                      {todayEvents &&
+                        todayEvents.map(Item => {
+                          const checkDate = new Date(Item.starttime);
+                          const date = moment(checkDate).format("DD MMMM YYYY");
+                          return (
+                          <Cards
+                          image={Item.image}
+                          title={Item.title}
+                          price={Item.price}
+                          content={Item.desc}
+                          date={date}
+                          category={Item.Category.name}
+                          link={"event/"+Item.id+"/detail"}
+                          />
+                          );
+                      })}
+                      </Card.Group>
+                    <br/>
+                      <Header 
+                        content='Upcoming'
+                        style={style.header}
+                      />
+                      <Card.Group itemsPerRow={3}>
+                          {upcomingEvents &&
+                          upcomingEvents.map(Item => {
+                          const checkDate = new Date(Item.starttime);
+                          const date = moment(checkDate).format("DD MMMM YYYY");
+                          return (
+                          <Cards
+                          image={Item.image}
+                          title={Item.title}
+                          price={Item.price}
+                          content={Item.desc}
+                          date={date}
+                          category={Item.Category.name}
+                          link={"event/"+Item.id+"/detail"}
+                          />);
+                      })}
+                      </Card.Group>
+                      </Container>
+                    )}
                 </Container>
         </div>
     )

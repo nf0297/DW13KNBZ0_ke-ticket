@@ -12,6 +12,7 @@ class Register extends Component {
     this.state = {
       id: "",
       name: "",
+      dob: "",
       email: "",
       phone: "",
       username: "",
@@ -33,6 +34,10 @@ class Register extends Component {
     this.setState({ phone: e.target.value });
   };
 
+  onChangeDOB = e => {
+    this.setState({ dob: e.target.value });
+  };
+
   onChangeUsername = e => {
     this.setState({ username: e.target.value });
   };
@@ -49,18 +54,24 @@ class Register extends Component {
     const name = this.state.name;
     const email = this.state.email;
     const phone =  this.state.phone;
+    const dob = this.state.dob;
     const username = this.state.username;
     const password = this.state.password;
     const image = this.state.image;
+
+    const dataUser = {
+      name:name,
+      email:email,
+      phone:phone,
+      dob:dob,
+      username:username,
+      password:password,
+      image:image
+    };
+    console.log(dataUser);
+
     axios
-    .post("http://localhost:5000/api/v1/register", {
-      name,
-      email,
-      phone,
-      username,
-      password,
-      image
-    })
+    .post("https://ke-ticket-app.herokuapp.com/api/v1/register", dataUser)
     .then(res => {
       console.log(res.data.user)
       localStorage.setItem("id", res.data.id);
@@ -70,7 +81,11 @@ class Register extends Component {
       localStorage.setItem("isLoggedIn", 1);
       alert("Account Created Successfully!")
       window.location.reload();
-    });
+    })
+    .catch(res => {
+      console.log(res);
+      alert("Register Fail!")
+    })
   };
 
   componentDidMount() {
@@ -121,6 +136,7 @@ class Register extends Component {
                   <Form.Input transparent fluid type='text' placeholder='Name' style={style.formInput} value={this.state.name} onChange={this.onChangeName} />
                   <Form.Input transparent fluid type='text' placeholder='Email' style={style.formInput} value={this.state.email} onChange={this.onChangeEmail} />
                   <Form.Input transparent fluid type='text' placeholder='Phone' style={style.formInput} value={this.state.phone} onChange={this.onChangePhone} />
+                  <Form.Input transparent fluid type='text' placeholder='YYYY-MM-DD' style={style.formInput} value={this.state.dob} onChange={this.onChangeDOB} />
                   <Form.Input transparent fluid type='text' placeholder='Username' style={style.formInput} value={this.state.username} onChange={this.onChangeUsername} />
                   <Form.Input transparent fluid type='password' placeholder='Password' style={style.formInput} value={this.state.password} onChange={this.onChangePassword} />
                   <Form.Input transparent fluid type='text' placeholder='Image' style={style.formInput} value={this.state.image} onChange={this.onChangeImage} />

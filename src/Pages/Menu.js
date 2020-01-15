@@ -12,7 +12,7 @@ class Menu extends Component {
     render(){
 
     const trigger = (
-        <Image avatar src='http://www.dreamers.id/img_artikel/38iu-donasi.jpg'/>
+        <Image avatar src='http://www.jardindemeriem.com/en/images/temoin/1.jpg'/>
     )
 
         return(
@@ -21,7 +21,7 @@ class Menu extends Component {
             trigger={trigger}
             >  
                 <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to='/profile/1' icon='user circle outline' text='Profile'/>
+                    <Dropdown.Item as={Link} to='/profile/' icon='user circle outline' text='Profile'/>
                     <Dropdown.Item as={Link} to='/my-ticket' icon='ticket' text='My Ticket'/>
                     <Dropdown.Item as={Link} to='/order/add' icon='money bill alternate outline' text='Payment'/>
                     <Dropdown.Item as={Link} to='/event/add' icon='calendar alternate outline' text='Add Event'/>

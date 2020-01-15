@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const Host = "http://localhost:5000/api/v1"
+const Host = "https://ke-ticket-app.herokuapp.com/api/v1"
 
 export const getProfilebyID = (id) => {
     console.log(id)

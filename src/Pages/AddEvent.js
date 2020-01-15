@@ -12,7 +12,6 @@ export default class AddEvent extends Component {
         super(props);
     
         this.state = {
-            id: "",
             title: "",
             category: "",
             image: "",
@@ -22,7 +21,6 @@ export default class AddEvent extends Component {
             address: "",
             urlmap: "",
             phone: "",
-            emailEO: "",
             content: ""
         };
     }
@@ -63,10 +61,6 @@ export default class AddEvent extends Component {
         this.setState({ phone: e.target.value });
       };
       
-      onChangeEmail = e => {
-        this.setState({ email: e.target.value });
-      };
-      
       onChangeContent = e => {
         this.setState({ content: e.target.value });
       };
@@ -83,24 +77,28 @@ export default class AddEvent extends Component {
         const content = this.state.content;
         
         const dataEvent = {
-            title:this.state.title,
-            category_id:this.state.category,
-            starttime:this.state.date+this.state.time,
-            endtime:this.state.date+this.state.time,
-            price:this.state.price,
-            desc:this.state.content,
-            address:this.state.address,
-            urlmap:this.state.map,
-            image:this.state.image,
+            title:title,
+            category_id:category,
+            starttime:date+" "+time,
+            endtime:date+" "+time,
+            price:price,
+            desc:content,
+            address:address,
+            urlmap:map,
+            image:image,
             user_id:localStorage.getItem("id"),
-        }
-
+        };
+        console.log(dataEvent);
         axios
-        .post("http://localhost:5000/api/v1/event/add", dataEvent)
+        .post("https://ke-ticket-app.herokuapp.com/api/v1/event/add", dataEvent)
         .then(res => {
-            console.log(res.data.event)
+            console.log(res)
             alert("Event Successfully Added!")
             window.location.reload();
+        })
+        .catch(res => {
+          console.log(res);
+          alert("Add Event Fail!")
         })
     }
                                             
@@ -120,10 +118,11 @@ export default class AddEvent extends Component {
                    <Form onSubmit={this.onSubmitEvent} style={{alignItems:'center', paddingLeft:"12vw", paddingRight:"12vw", paddingTop:"8vh", paddingBottom:"8vh"}}>
                         <Form.Input transparent fluid type='text' placeholder='Title Event' style={style.formInput} value={this.state.title} onChange={this.onChangeTitle} />
                         <Form.Input transparent fluid type='text' placeholder='Category' style={style.formInput} value={this.state.category} onChange={this.onChangeCategory} />
-                        <Form.Group>
+                        {/* <Form.Group>
                             <Form.Input transparent width={13} type='text' placeholder='Upload Pamflet' style={style.formInput} value={this.state.image} onChange={this.onChangeImage} />
                             <Form.Button content='Attach Image' style={style.buttonLayout} />
-                        </Form.Group>
+                        </Form.Group> */}
+                        <Form.Input transparent fluid type='text' placeholder='Url Image' style={style.formInput} value={this.state.image} onChange={this.onChangeImage} />
                         <Form.Input transparent fluid type='text' placeholder='DD/MM/YYYY' style={style.formInput} value={this.state.date} onChange={this.onChangeDate} />
                         <Form.Input transparent fluid type='text' placeholder='Time' style={style.formInput} value={this.state.time} onChange={this.onChangeTime}/>
                         <Form.Input transparent fluid type='text' placeholder='Price' style={style.formInput} value={this.state.price} onChange={this.onChangePrice}/>

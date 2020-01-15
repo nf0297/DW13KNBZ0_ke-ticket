@@ -18,7 +18,7 @@ class Payment extends Component {
         }
 
     onClickConfirmed = (id) => () => {
-        axios.put(`http://localhost:5000/api/v1/status/${id}`)
+        axios.put(`https://ke-ticket-app.herokuapp.com/api/v1/status/${id}`)
         .then(res => {
         alert("Payment Confirmed!");
         console.log(id)
@@ -27,7 +27,7 @@ class Payment extends Component {
     }
 
     onClickApproved = (id) => () => {
-        axios.put(`http://localhost:5000/api/v1/approve/${id}`)
+        axios.put(`https://ke-ticket-app.herokuapp.com/api/v1/approve/${id}`)
         .then(res => {
         alert("Payment Approved!");
         console.log(id)
@@ -36,7 +36,7 @@ class Payment extends Component {
     }
 
     render () {
-        console.log(this.props.Payment, "CEK WOOOOII");
+        console.log(this.props.Payment, "CEK");
         
         return (
             

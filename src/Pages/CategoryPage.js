@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Header, Card, Container, Input, Divider } from 'semantic-ui-react';
-import moment from 'moment';
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
 import { connect } from 'react-redux';
 
 import HeaderHome from './HeaderHome';
@@ -9,6 +11,15 @@ import FooterHome from './FooterHome';
 import { getEventByCategory } from '../Redux/_action/ActionEvent';
 
 class CategoryPage extends Component {
+  state = {
+    startDate: new Date()
+  };
+
+  handleChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
     componentDidMount() {
         const {id} = this.props.match.params; 
         this.props.dispatch(getEventByCategory(id));
@@ -16,37 +27,37 @@ class CategoryPage extends Component {
       
 
   render() {
+    const dataEvent = this.props.EventByCategory;
 
+    const sortEvent = dataEvent.filter(dataEvent => {
+      return (
+        moment(new Date(dataEvent.startTime)).format("YYYY-MM-DD") ===
+        moment(this.state.startDate).format("YYYY-MM-DD")
+      );
+    });
         return (
-            <Container fluid style={{padding:'0vh', marginTop:'0'}}>
+            <Container fluid>
             <HeaderHome/>
             <div style={style.container}>
-            <Container style={{paddingBottom:"5vh", marginTop:'0'}}>
-              <Divider hidden/>
+            <Container style={{paddingBottom:"5vh"}}>
              {this.props.EventByCategory.slice(0, 1).map(Item => 
                <Header 
                content={Item.Category.name}
                style={style.header}
                />
              )}
-              <span style={{fontSize:"16px"}}>Sort by : </span>
-              <Input
-              icon='calendar'
-              size='large' 
-              placeholder='Choose Date' 
-              style={{marginLeft:"2vh"}}
+             
+              <span style={{fontSize:"16px", paddingRight:'0.5vw'}}>Sort by : </span>
+                <DatePicker 
+                selected={this.state.startDate} 
+                onChange={this.handleChange}
               />
-                   <Input
-              icon='dropdown'
-              size='large' 
-              placeholder='Choose Location' 
-              style={{marginLeft:"2vh"}}
-              />
-                <Card.Group itemsPerRow={3} style={{paddingTop:"3vh"}}>
-                    {this.props.EventByCategory.map(Item => {
+              <Card.Group itemsPerRow={3} style={{paddingTop:"2vh"}}>
+                {sortEvent &&
+                  sortEvent.map(Item => {
                     const checkDate = new Date(Item.startTime);
                     const date = moment(checkDate).format("DD MMMM YYYY");
-                    return (
+                    return(
                     <Cards
                     image={Item.image}
                     title={Item.title}
@@ -55,9 +66,9 @@ class CategoryPage extends Component {
                     date={date}
                     category={Item.Category.name}
                     link={"/event/"+Item.id+"/detail"}
-                    />);
-                    })}
-                </Card.Group>
+                    />
+                  )})}
+              </Card.Group>
               <Divider hidden/>
             </Container>
             </div>
@@ -70,15 +81,19 @@ class CategoryPage extends Component {
 const style = {
   header: {
       color: 'rgb(255, 77, 77)',
-      fontSize: '36px'
+      fontSize: '36px',
+      margin:'3vh 0vw'
   },
   container: {
       backgroundColor: 'rgb(255, 230, 255)',
-      paddingTop: '10vh'
+      paddingTop: '3vh'
   },
   containerInside: {
-      padding:'10vh 0vw 10vh 0vw'
-  }
+      padding:'3vh 0vw 3vh 0vw'
+  },
+  calendar: {
+    marginLeft:'100vw'
+  },
 }
 
 // state

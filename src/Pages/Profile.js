@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import HeaderHome from './HeaderHome'
 import FooterHome from './FooterHome'
+import EditProfile from './EditProfile'
 import { getAllEvent } from '../Redux/_action/ActionEvent';
 import { getProfilebyID } from '../Redux/_action/ActionUser';
 import CardsFavourite from '../Component/Content/Card/CardsFavourite';
@@ -36,7 +37,7 @@ class Profile extends Component {
                     />
                     {this.props.ProfileData.map(Item =>
                     <Grid columns='equal' columns={3}>
-                        <Grid.Column width={8}>
+                        <Grid.Column width={7}>
                                 <div>
                                 <Header 
                                     size='huge'
@@ -50,11 +51,8 @@ class Profile extends Component {
                             
                         </Grid.Column>
                         
-                        <Grid.Column width={2}>
-                            <Button
-                            color='red'
-                            content='Edit Profile'
-                            />
+                        <Grid.Column width={3}>
+                            <EditProfile/>
                         </Grid.Column>
 
                         <Grid.Column width={6} >
@@ -63,7 +61,7 @@ class Profile extends Component {
                             src={Item.image} 
                             size='medium'  
                             floated='right'
-                            style={{marginRight:'2vw', width:'300px', height:'300px'}}
+                            style={{marginRight:'0vw', width:'300px', height:'300px'}}
                             />
                         </Grid.Column>
                     </Grid>
