@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Grid, Form, Header, Button, Modal, Icon} from 'semantic-ui-react'
+import {Grid, Form, Header, Button, Modal} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import axios from 'axios';
 

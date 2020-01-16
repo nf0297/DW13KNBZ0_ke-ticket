@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import {Dropdown, Icon, Image} from 'semantic-ui-react'
+import {Dropdown, Image} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 class Menu extends Component {
 
     onClickLogout = e => {
         localStorage.clear();
-        window.location.reload();
+        window.location.href= "/";
     }
 
     render(){

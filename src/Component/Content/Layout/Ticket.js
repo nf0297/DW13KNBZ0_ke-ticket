@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Grid, Header, Image, Container, Divider, Button} from 'semantic-ui-react'
+import {Grid, Header, Image, Container} from 'semantic-ui-react'
 
 class Ticket extends Component {
     render () {

@@ -24,27 +24,31 @@ export default class CardsEvent extends Component {
   }
 
   onClickOrder = e => {
-    let dataOrder = {
-      event_id : this.props.id,
-      buyer_id : localStorage.getItem("id"),
-      quantity : this.state.ticketQty,
-      total_price : this.props.price * this.state.ticketQty,
-      status : "pending",
-      attachment : "",
-    };
-    console.log(dataOrder);
-    axios
-    .post("https://ke-ticket-app.herokuapp.com/api/v1/order/add", dataOrder)
-    .then(res => {
-      console.log(res);
-      alert("Order Successfully Added!")
-      window.location.reload();
-    })
-    .catch(res => {
-      console.log(res);
-      alert("Order Failure!")
-    })
+    if (localStorage.getItem("token")) {
+      let dataOrder = {
+        event_id : this.props.id,
+        buyer_id : localStorage.getItem("id"),
+        quantity : this.state.ticketQty,
+        total_price : this.props.price * this.state.ticketQty,
+        status : "pending",
+        attachment : "",
+      };
+    
+      axios
+      .post("https://ke-ticket-app.herokuapp.com/api/v1/order/add", dataOrder)
+      .then(res => {
+        console.log(res);
+        alert("Order Successfully Added!")
+        window.location.href="/order/add";
+      })
+      .catch(res => {
+        console.log(res);
+        alert("Order Failure!")
+      })
+  } else {
+    alert("Please login first before purchasing the ticket!");
   }
+  };
  
 
   render() {

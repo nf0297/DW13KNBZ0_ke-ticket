@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Header, Card, Container, Input, Divider } from 'semantic-ui-react';
+import { Header, Card, Container, Divider } from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";

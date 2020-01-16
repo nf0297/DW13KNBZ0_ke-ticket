@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Grid, Container, Header, Image, Card, Button} from 'semantic-ui-react'
+import {Grid, Container, Header, Image, Card} from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import moment from 'moment';
 

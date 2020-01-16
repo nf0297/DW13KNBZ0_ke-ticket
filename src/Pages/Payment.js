@@ -31,7 +31,7 @@ class Payment extends Component {
         .then(res => {
         alert("Payment Approved!");
         console.log(id)
-        window.location.reload();
+        window.location.href='/my-ticket';
       });
     }
 
@@ -188,7 +188,7 @@ class Payment extends Component {
                                     </div>
                             </Grid.Column>
                             );
-                            })};
+                            })}
                         </Grid>
                     </Container>
                     </div>

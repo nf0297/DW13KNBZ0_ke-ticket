@@ -6,14 +6,15 @@ import {Link} from 'react-router-dom';
  class Cards extends Component {
   render() {
     const content = this.props.content;
+    const {date, price, title, image, link} = this.props;
     const contentLength = content.length;
     return (
-        <Card as={Link} to={this.props.link}>
-          <Image src={this.props.image} style={{height:'30vh'}} />
+        <Card as={Link} to={link}>
+          <Image src={image} style={{height:'30vh'}} />
           <Card.Content>
-            <Card.Header>{this.props.title}</Card.Header>
+            <Card.Header>{title}</Card.Header>
             <Card.Meta>
-              {this.props.price}
+              {price}
             </Card.Meta>
             <Card.Description>
             {contentLength > 100
@@ -21,7 +22,7 @@ import {Link} from 'react-router-dom';
               : content}
             </Card.Description>
           </Card.Content>
-          <Card.Content extra>{this.props.date}</Card.Content>
+          <Card.Content extra>{date}</Card.Content>
           <Button icon='heart' onClick={this.FavouriteHandler}/>
         </Card>
     )
