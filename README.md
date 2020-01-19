@@ -1,6 +1,10 @@
 ## App Description
 
 Ke-Ticket is a web based platform that provides ticket to various event around sports, music, science and gaming.
+
+## App Usage
+
+Go to [Ke-Ticket](https://ke-ticket-nf0297.netlify.com) for insight about the app. If there is no event (because i haven't add event till the end of the 2020 year) then you could add new event by yourself. You could login with username: chelsea, and password: chelsea.
  
 ## Note
 
